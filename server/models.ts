@@ -1,7 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IEntry extends Document {
-  // date: string;
+  date: Date;
   temp: number;
   lux: number;
   hum: number;
