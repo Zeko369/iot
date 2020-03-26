@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <ArduinoJson.h>
 
 const char* ssid = "My note 9";
 const char* password =  "123456789";
@@ -27,9 +28,22 @@ void loop() {
    HTTPClient http;
 
    http.begin("http://192.168.43.86:3000/save");  //Specify destination for HTTP request
-   http.addHeader("Content-Type", "text/plain");             //Specify content-type header
 
-   int httpResponseCode = http.POST("POSTING from ESP32");   //Send the actual POST request
+
+   DynamicJsonDocument doc(1024);
+
+   doc["temp"] = 23.5;
+   doc["hum"] = 0.12;
+   doc["lux"] = 123;
+
+   String json;
+
+   serializeJson(doc, json);
+
+   http.addHeader("Content-Type", "application/json" , "Content-Length", json.length());    //Specify content-type header
+
+
+   int httpResponseCode = http.POST(json);   //Send the actual POST request
 
    if(httpResponseCode>0){
 
