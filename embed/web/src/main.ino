@@ -27,14 +27,14 @@ void loop() {
 
    HTTPClient http;
 
-   http.begin("http://192.168.43.86:3000/save");  //Specify destination for HTTP request
+   http.begin("http://192.168.43.86:5000/save");  //Specify destination for HTTP request
 
 
    DynamicJsonDocument doc(1024);
 
-   doc["temp"] = 23.5;
-   doc["hum"] = 0.12;
-   doc["lux"] = 123;
+   doc["temp"] = 23.5 * (millis() % 100);
+   doc["hum"] = 0.12 * (millis() % 100);
+   doc["lux"] = 123 * (millis() % 100);
 
    String json;
 
@@ -67,6 +67,5 @@ void loop() {
 
  }
 
-  delay(10000);  //Send a request every 10 seconds
-
+  delay(5000);  //Send a request every 10 seconds
 }
