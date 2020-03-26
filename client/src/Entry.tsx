@@ -21,16 +21,22 @@ const EntriesTable: React.FC<IEntriesTableProps> = ({ entries }) => {
       <thead>
         <tr>
           {getColumns(entries[0]).map(column => (
-            <td key={column}>{column}</td>
+            <td key={column}>{column.toUpperCase()}</td>
           ))}
         </tr>
       </thead>
       <tbody>
         {entries.map(row => (
           <tr>
-            {getColumns(row).map(column => (
-              <td>{row[column]}</td>
-            ))}
+            {getColumns(row).map(column => {
+              if (column === "date") {
+                return (
+                  <td>{new Date(row[column]).toUTCString().slice(0, -4)}</td>
+                );
+              }
+
+              return <td>{row[column]}</td>;
+            })}
           </tr>
         ))}
         <tr></tr>
