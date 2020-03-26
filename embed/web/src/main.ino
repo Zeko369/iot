@@ -2,8 +2,8 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "My note 9";
-const char* password =  "123456789";
+const char* ssid = "TP-LINK_POCKET_3020_B6850A";
+const char* password =  "29731107";
 
 void setup() {
   Serial.begin(115200);
@@ -27,7 +27,7 @@ void loop() {
 
    HTTPClient http;
 
-   http.begin("http://192.168.43.86:5000/save");  //Specify destination for HTTP request
+   http.begin("http://192.168.1.6:5000/save");  //Specify destination for HTTP request
 
 
    DynamicJsonDocument doc(1024);
