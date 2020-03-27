@@ -7,7 +7,7 @@
 #include <DHT_U.h>
 
 #define DHTPIN 32     // Digital pin connected to the DHT sensor
-// Feather HUZZAH ESP8266 note: use pins 3, 4, 5, 12, 13 or 14 --
+// Feather HUZZAH ESP8356 note: use pins 3, 4, 5, 12, 13 or 14 --
 // Pin 15 can work but DHT must be disconnected during program upload.
 
 // Uncomment the type of sensor in use:
@@ -38,7 +38,7 @@ void setup() {
 
   Serial.println("Connected to the WiFi network");
 
-  pinMode(25, INPUT);
+  pinMode(35, INPUT);
 
   dht.begin();
 }
@@ -71,7 +71,9 @@ void loop() {
     Serial.println(F("%"));
   }
 
-   doc["lux"] = analogRead(25);
+  Serial.println(analogRead(35));
+
+   doc["lux"] = analogRead(35);
 
    String json;
 
@@ -103,5 +105,5 @@ void loop() {
 
  }
 
-  delay(5000);  //Send a request every 10 seconds
+  delay(1000);  //Send a request every 10 seconds
 }
