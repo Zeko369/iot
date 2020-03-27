@@ -1,11 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
 
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+.white {
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
 * {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
+  color: var(--foreground);
 }
 
 body {
+  background-color: var(--background);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -27,6 +27,7 @@ td {
   border-radius: 5px;
   cursor: pointer;
   transition-duration: 0.3s;
+  color: black;
 
   &.reload:active {
     transform: translateY(3px);
@@ -36,5 +37,10 @@ td {
   &.reload {
     float: right;
     background-color: #2ae0f8;
+  }
+
+  &.toggle {
+    float: right;
+    margin-right: 10px;
   }
 }

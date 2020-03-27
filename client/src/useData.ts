@@ -1,5 +1,4 @@
-import { useReducer, useEffect } from "react";
-import { IState, IEntry, Action } from "./ts";
+import { IState, Action } from "./ts";
 
 export const initState: IState = {
   loading: false,
