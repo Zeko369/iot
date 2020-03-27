@@ -1,54 +1,11 @@
 import React, { useReducer, useEffect } from "react";
-import "./App.css";
-import Entry from "./Entry";
-import EntriesTable from "./Entry";
+import EntriesTable from "./EntriesTable";
+import { reducer, initState } from "./useData";
+import { Action } from "./ts";
 
-type Action =
-  | { type: "loading" }
-  | { type: "error"; payload: string }
-  | { type: "success"; payload: any[] };
+import "./App.scss";
 
-enum DataState {
-  idle,
-  loading,
-  error
-}
-
-export interface IEntry {
-  _id: string;
-  temp: number;
-  hum: number;
-  lux: number;
-  date: string;
-  __v: number;
-}
-
-interface IState {
-  state: DataState;
-  data: IEntry[];
-  error: string;
-}
-
-const initState: IState = {
-  state: DataState.idle,
-  data: [],
-  error: ""
-};
-
-const reducer = (state: IState, action: Action): IState => {
-  switch (action.type) {
-    case "loading":
-      return { ...state, state: DataState.loading, error: "" };
-    case "error":
-      return { ...state, error: action.payload, state: DataState.error };
-    case "success":
-      return { ...state, data: action.payload, state: DataState.idle };
-    default:
-      return state;
-  }
-};
-
-const refetch = (dispatch: React.Dispatch<Action>) => async () => {
+const get = (dispatch: React.Dispatch<Action>) => () => {
   dispatch({ type: "loading" });
   return fetch("http://localhost:5000")
     .then(res => res.json())
@@ -57,29 +14,29 @@ const refetch = (dispatch: React.Dispatch<Action>) => async () => {
 };
 
 function App() {
-  const [{ state, data, error }, dispatch] = useReducer(reducer, initState);
+  const [{ loading, data, error }, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      refetch(dispatch)();
-    }, 1000);
-
-    return () => clearInterval(interval);
+    get(dispatch)();
   }, []);
 
   return (
     <div className="App">
-      <h1>Data: </h1>
-      {state === DataState.error ? (
+      <button className="reload btn" onClick={get(dispatch)}>
+        Reload
+      </button>
+      <h1>IOT:</h1>
+      {error ? (
         <>
           <h1>Error...</h1>
           <p>{JSON.stringify(error)}</p>
         </>
       ) : (
-        <EntriesTable entries={data} />
+        <div>
+          <h1>Data: </h1>
+          <EntriesTable entries={data} loading={loading} />
+        </div>
       )}
-
-      {state === DataState.loading && <h3>Loading...</h3>}
     </div>
   );
 }
