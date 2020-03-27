@@ -42,5 +42,7 @@ td {
   &.toggle {
     float: right;
     margin-right: 10px;
+    color: var(--background);
+    background-color: var(--foreground);
   }
 }
