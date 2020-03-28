@@ -33,7 +33,6 @@ const formatTemp = (temp: number) => `${temp}°C`;
 const formatHum = (hum: number) => `${hum}%`;
 
 function App() {
-  const [light, setLight] = useState(true);
   const [{ loading, data, error }, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
@@ -47,7 +46,7 @@ function App() {
       </button>
       <button
         className="toggle btn"
-        onClick={() => document.documentElement.classList.toggle("white")}
+        onClick={() => document.documentElement.classList.toggle("black")}
       >
         Toggle
       </button>
