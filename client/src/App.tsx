@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useReducer, useEffect } from "react";
 import EntriesTable from "./EntriesTable";
 import { reducer, initState } from "./useData";
 import { Action } from "./ts";
