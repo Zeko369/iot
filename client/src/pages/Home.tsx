@@ -1,37 +1,11 @@
 import React, { useReducer, useEffect } from "react";
-import { reducer, initState } from "../hooks/useData";
-import { Action } from "../@types";
+import styled from "styled-components";
 
+import { reducer, initState, get } from "../hooks/useData";
 import StatsCard from "../components/StatsCard";
 import EntriesTable from "../components/EntriesTable";
-import styled from "styled-components";
 import Button from "../components/Button";
-
-const get = (dispatch: React.Dispatch<Action>) => () => {
-  dispatch({ type: "loading" });
-  return fetch("http://localhost:5000")
-    .then((res) => res.json())
-    .then((data) => dispatch({ type: "success", payload: data }))
-    .catch((err) => dispatch({ type: "error", payload: err }));
-};
-
-const time = (val: string) => {
-  const date = new Date(val);
-  let diff = (Date.now() - date.getTime()) / 1000 / 60; // minutes
-
-  if (diff < 60) {
-    const out = Math.floor(diff);
-    return `${out} minute${out > 1 ? "s" : ""} ago`;
-  } else if (diff / 60 < 24) {
-    const out = Math.floor(diff / 60);
-    return `${out} hour${out > 1 ? "s" : ""} ago`;
-  }
-
-  return `On ${date.toLocaleString()}`;
-};
-
-const formatTemp = (temp: number) => `${temp}°C`;
-const formatHum = (hum: number) => `${hum}%`;
+import { time, formatTemp, formatHum } from "../helpers/format";
 
 const Header = styled.div`
   display: grid;

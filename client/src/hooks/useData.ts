@@ -18,3 +18,11 @@ export const reducer = (state: IState, action: Action): IState => {
       return state;
   }
 };
+
+export const get = (dispatch: React.Dispatch<Action>) => () => {
+  dispatch({ type: "loading" });
+  return fetch("http://localhost:5000")
+    .then((res) => res.json())
+    .then((data) => dispatch({ type: "success", payload: data }))
+    .catch((err) => dispatch({ type: "error", payload: err }));
+};
