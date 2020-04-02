@@ -1,5 +1,6 @@
 import React from "react";
-import { IEntry } from "./ts";
+import { IEntry } from "../@types";
+import styled from "styled-components";
 
 interface IEntriesTableProps {
   entries: IEntry[];
@@ -8,9 +9,25 @@ interface IEntriesTableProps {
 
 const getColumns = (row: IEntry): (keyof IEntry)[] => {
   return (Object.keys(row) as (keyof IEntry)[]).filter(
-    column => !["_id", "__v"].includes(column)
+    (column) => !["_id", "__v"].includes(column)
   );
 };
+
+const Table = styled.table`
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+
+  thead > tr > td {
+    font-weight: 700;
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid #adadad;
+    padding: 5px 10px;
+  }
+`;
 
 const EntriesTable: React.FC<IEntriesTableProps> = ({ entries, loading }) => {
   if (!entries || !entries[0]) {
@@ -19,19 +36,19 @@ const EntriesTable: React.FC<IEntriesTableProps> = ({ entries, loading }) => {
 
   return (
     <>
-      <table>
+      <Table>
         <thead>
           <tr>
-            {getColumns(entries[0]).map(column => (
+            {getColumns(entries[0]).map((column) => (
               <td key={column}>{column.toUpperCase()}</td>
             ))}
           </tr>
         </thead>
         {!loading && (
           <tbody>
-            {entries.map(row => (
+            {entries.map((row) => (
               <tr key={row._id}>
-                {getColumns(row).map(column => {
+                {getColumns(row).map((column) => {
                   if (column === "date") {
                     return (
                       <td key={`${row._id}-${column}`}>
@@ -47,7 +64,7 @@ const EntriesTable: React.FC<IEntriesTableProps> = ({ entries, loading }) => {
             <tr></tr>
           </tbody>
         )}
-      </table>
+      </Table>
       {loading && <h3>Loading...</h3>}
     </>
   );

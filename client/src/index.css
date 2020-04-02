@@ -16,14 +16,17 @@
   color: var(--foreground);
 }
 
-body {
-  background-color: var(--background);
+html,
+body,
+#root {
   margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

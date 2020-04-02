@@ -1,26 +1,6 @@
-.App {
-  margin: 0 auto;
-  width: 80%;
-  max-width: 900px;
-}
+import styled from "styled-components";
 
-table {
-  width: 100%;
-  border: none;
-  border-collapse: collapse;
-}
-
-thead > tr > td {
-  font-weight: 700;
-}
-
-th,
-td {
-  border-bottom: 1px solid #adadad;
-  padding: 5px 10px;
-}
-
-.btn {
+const Button = styled.button`
   outline: none;
   padding: 10px 20px;
   border: none;
@@ -45,4 +25,6 @@ td {
     color: var(--background);
     background-color: var(--foreground);
   }
-}
+`;
+
+export default Button;

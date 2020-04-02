@@ -1,4 +1,4 @@
-import { IState, Action } from "./ts";
+import { IState, Action } from "../@types";
 
 export const initState: IState = {
   loading: false,
