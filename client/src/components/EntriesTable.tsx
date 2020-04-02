@@ -1,6 +1,7 @@
 import React from "react";
-import { IEntry } from "../@types";
 import styled from "styled-components";
+
+import { IEntry } from "../@types";
 
 interface IEntriesTableProps {
   entries: IEntry[];
