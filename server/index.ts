@@ -6,6 +6,8 @@ import { config } from "dotenv";
 import db from "./db";
 import router from "./router";
 
+const PORT = 5000;
+
 config();
 
 const app = express();
@@ -18,7 +20,7 @@ app.use(router);
 
 (async () => {
   await db();
-  app.listen(5000, () => {
-    console.log("Listening on: http://localhost:5000");
+  app.listen(PORT, () => {
+    console.log(`Listening on: http://localhost:${PORT}`);
   });
 })();

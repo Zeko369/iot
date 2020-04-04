@@ -3,11 +3,9 @@ import { Entry } from "./models";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (_req, res) => {
   try {
-    const entries = await Entry.find()
-      .sort({ date: -1 })
-      .limit(20);
+    const entries = await Entry.find().sort({ date: -1 }).limit(20);
     res.send(entries);
   } catch (err) {
     res.status(500).send(err);
@@ -22,4 +20,5 @@ router.post("/save", async (req, res) => {
     res.status(500);
   }
 });
+
 export default router;
