@@ -1,5 +1,7 @@
 import { IState, Action } from "../@types";
 
+const URL = "http://localhost:5000/";
+
 export const initState: IState = {
   loading: false,
   data: [],
@@ -21,7 +23,7 @@ export const reducer = (state: IState, action: Action): IState => {
 
 export const get = (dispatch: React.Dispatch<Action>) => () => {
   dispatch({ type: "loading" });
-  return fetch("http://localhost:5000")
+  return fetch(URL)
     .then((res) => res.json())
     .then((data) => dispatch({ type: "success", payload: data }))
     .catch((err) => dispatch({ type: "error", payload: err }));

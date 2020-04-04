@@ -19,7 +19,7 @@ const HomeContainer = styled.div`
   max-width: 900px;
 `;
 
-function App() {
+function Home() {
   const [{ loading, data, error }, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
@@ -68,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
