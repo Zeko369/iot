@@ -45,7 +45,7 @@ const EntriesTable: React.FC<IEntriesTableProps> = ({ entries, loading }) => {
             ))}
           </tr>
         </thead>
-        {!loading && (
+        {(!loading || entries) && (
           <tbody>
             {entries.map((row) => (
               <tr key={row._id}>

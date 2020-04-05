@@ -23,7 +23,8 @@ function Home() {
   const [{ loading, data, error }, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
-    get(dispatch)();
+    const interval = setInterval(get(dispatch), 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
