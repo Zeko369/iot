@@ -6,6 +6,8 @@
 #include <DHT.h>
 #include <DHT_U.h>
 
+#include "deviceID.h"
+
 #define DHTPIN 32     // Digital pin connected to the DHT sensor
 // Feather HUZZAH ESP8356 note: use pins 3, 4, 5, 12, 13 or 14 --
 // Pin 15 can work but DHT must be disconnected during program upload.
@@ -23,6 +25,8 @@ DHT_Unified dht(DHTPIN, DHTTYPE);
 const char* ssid = "TP-LINK_POCKET_3020_B6850A";
 const char* password =  "29731107";
 
+int deviceID = -1;
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Begin");
@@ -38,13 +42,21 @@ void setup() {
 
   Serial.println("Connected to the WiFi network");
 
+  // uint64_t chipid;
+
+  // chipid = ESP.getEfuseMac();
+  // Serial.printf("ESP32 Chip ID = %04X",(uint16_t)(chipid>>32));//print High 2 bytes
+	// Serial.printf("%08X\n",(uint32_t)chipid);//print Low 4bytes.
+
   pinMode(35, INPUT);
 
   dht.begin();
+
+  setupDeviceId();
+  deviceID = getDeviceId();
 }
 
 void loop() {
-
  if(WiFi.status()== WL_CONNECTED) {   //Check WiFi connection status
    HTTPClient http;
    http.begin("http://192.168.1.6:5000/save");  //Specify destination for HTTP request
@@ -74,6 +86,8 @@ void loop() {
   Serial.println(analogRead(35));
 
    doc["lux"] = analogRead(35);
+
+   doc["device_id"] = deviceID;
 
    String json;
 
