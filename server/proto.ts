@@ -13,7 +13,9 @@ db()
   })
   .then((entries) => {
     entries.forEach((row) => {
-      console.log(`${row.temp}`);
+      console.log(
+        `${row.lux} ${new Date(row.date.getTime()).toLocaleTimeString()}`
+      );
     });
   })
   .catch((err) => console.error(err))

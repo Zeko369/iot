@@ -50,12 +50,15 @@ const EntriesTable: React.FC<IEntriesTableProps> = ({ entries, loading }) => {
             {entries.map((row) => (
               <tr key={row._id}>
                 {getColumns(row).map((column) => {
-                  if (column === "date") {
-                    return (
-                      <td key={`${row._id}-${column}`}>
-                        {new Date(row[column]).toUTCString().slice(0, -4)}
-                      </td>
-                    );
+                  switch (column) {
+                    case "date":
+                      return (
+                        <td key={`${row._id}-${column}`}>
+                          {new Date(row[column]).toLocaleString()}
+                        </td>
+                      );
+                    case "hum":
+                      return <td key={`${row._id}-${column}`}>{row.hum}%</td>;
                   }
 
                   return <td key={`${row._id}-${column}`}>{row[column]}</td>;
