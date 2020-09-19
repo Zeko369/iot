@@ -33,13 +33,30 @@ void runLeds(int i) {
 }
 
 void loop() {
-  for(int i = 0; i < 256; i++) {
-    analogWrite(HEAD_LED, i);
-    runLeds(i);
+  for(int i = 0; i < 255; i++) {
+    leds[0] = CRGB(0, i, 0);
+    leds[1] = CRGB(i, 0, 0);
+
+    FastLED.show();
+
+    delay(5);
   }
 
   for(int i = 255; i >= 0; i--) {
-    analogWrite(HEAD_LED, i);
-    runLeds(i);
+    leds[0] = CRGB(0, i, 0);
+    leds[1] = CRGB(i, 0, 0);
+
+    FastLED.show();
+
+    delay(5);
   }
+  // for(int i = 0; i < 256; i++) {
+  //   analogWrite(HEAD_LED, i);
+  //   runLeds(i);
+  // }
+  //
+  // for(int i = 255; i >= 0; i--) {
+  //   analogWrite(HEAD_LED, i);
+  //   runLeds(i);
+  // }
 }
