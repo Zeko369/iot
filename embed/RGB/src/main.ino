@@ -7,12 +7,13 @@
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
 // ground, and power), like the LPD8806 define both DATA_PIN and CLOCK_PIN
 // Clock pin only needed for SPI based chipsets when not using hardware SPI
-#define DATA_PIN 7
+#define DATA_PIN 32
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
 
 void setup() {
+  Serial.begin(9600);
     // Uncomment/edit one of the following lines for your leds arrangement.
     // ## Clockless types ##
     FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
@@ -56,15 +57,28 @@ void setup() {
     // FastLED.addLeds<SK9822, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);  // BGR ordering is typical
 
     FastLED.setBrightness(255);
+    FastLED.setMaxRefreshRate(1000, false);
 }
 
 void loop() {
-  // Turn the LED on, then pause
-  for(int i = 0; i < 5; i++) {
-    leds[i] = CRGB::Red;
+  static uint8_t init = false;
+  static uint8_t hue[NUM_LEDS] = {0};
+
+  if(!init) {
+    for(int i = 1; i < NUM_LEDS; i++) {
+      hue[i] = hue[i-1] + 2;
+    }
+
+    init = true;
+  }
+
+  while(1) {
+    for(int i = 0; i < NUM_LEDS; i++) {
+      leds[i] = CHSV(hue[0], 255, 255);
+    }
     FastLED.show();
-    delay(20);
-    // Now turn the LED off, then pause
-    // leds[i] = CRGB::Black;
+    hue[0]++;
+
+    delay(10);
   }
 }
